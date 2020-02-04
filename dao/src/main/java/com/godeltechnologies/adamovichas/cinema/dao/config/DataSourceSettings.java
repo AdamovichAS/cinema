@@ -1,4 +1,4 @@
-package com.godeltechnologies.adamovichas.cinema.config;
+package com.godeltechnologies.adamovichas.cinema.dao.config;
 
 import org.springframework.beans.factory.annotation.Value;
 

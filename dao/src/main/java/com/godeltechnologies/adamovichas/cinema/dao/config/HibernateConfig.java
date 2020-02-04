@@ -1,4 +1,4 @@
-package com.godeltechnologies.adamovichas.cinema.config;
+package com.godeltechnologies.adamovichas.cinema.dao.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +37,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean entityManagerFactory() {
         final LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
         sf.setDataSource(dataSource());
-        sf.setPackagesToScan("com.godeltechnologies.adamovichas.cinema.entity");
+        sf.setPackagesToScan("com.godeltechnologies.adamovichas.cinema.dao.entity");
         sf.setHibernateProperties(settingsConfig.hibernateProperties());
         return sf;
     }

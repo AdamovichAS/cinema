@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: User
-  Date: 31.01.2020
-  Time: 14:19
+  Date: 03.02.2020
+  Time: 16:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  <jsp:forward page="/main/"/>
-  </body>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<jsp:include page="film_pagination.jsp"/>
+</body>
 </html>

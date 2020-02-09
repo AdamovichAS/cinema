@@ -2,9 +2,8 @@ package com.godeltechnologies.adamovichas.cinema.dao.config;
 
 import com.godeltechnologies.adamovichas.cinema.dao.IFilmDao;
 import com.godeltechnologies.adamovichas.cinema.dao.impl.FilmDao;
-import com.godeltechnologies.adamovichas.cinema.dao.repository.DirectorRepository;
 import com.godeltechnologies.adamovichas.cinema.dao.repository.FilmRepository;
-import com.godeltechnologies.adamovichas.cinema.dao.repository.GenreRepository;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,15 +18,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.godeltechnologies.adamovichas.cinema.dao.repository")
 public class DaoConfig {
 
-    @Autowired
-    private DirectorRepository directorRepository;
 
     @Autowired
     private FilmRepository filmRepository;
-
-    @Autowired
-    private GenreRepository genreRepository;
-
 
     @Bean
     public IFilmDao filmDao(){

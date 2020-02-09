@@ -1,6 +1,7 @@
 package com.godeltechnologies.adamovichas.cinema.dao.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -10,7 +11,7 @@ public class FilmEntity {
     private Long id;
     private Long directorId;
     private String name;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private Long genreId;
     private DirectorEntity director;
     private GenreEntiry genre;
@@ -42,12 +43,12 @@ public class FilmEntity {
     public void setName(String name) {
         this.name = name;
     }
-    @Column(name = "release_date",nullable = false, columnDefinition = "DATE")
-    public Date getReleaseDate() {
+    @Column(name = "release_date",nullable = false,columnDefinition = "DATE")
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
     @Column(name = "genre_id",nullable = false,insertable = false,updatable = false)

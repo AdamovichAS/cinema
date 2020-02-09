@@ -16,9 +16,9 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="addon-wrapping">@</span>
         </div>
-        <input type="text" class="form-control" placeholder="filter" value="${search}" name="search" aria-label="Username"
+        <input type="text" class="form-control" placeholder="filter" value="${page.searchRequest}" name="search" aria-label="Username"
                aria-describedby="addon-wrapping">
-        <input type="submit" name="submit" value="add filter" />
+        <input type="submit" name="submit" value="Поиск" />
     </div>
 </form>
 </body>

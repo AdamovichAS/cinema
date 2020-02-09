@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -11,6 +12,9 @@
     <title>Title</title>
 </head>
 <body>
+<c:if test="${page.exception ne null}">
+    <c:out value="${page.exception}"/>
+</c:if>
 <jsp:include page="film_pagination.jsp"/>
 </body>
 </html>

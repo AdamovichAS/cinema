@@ -2,14 +2,13 @@ package com.godeltechnologies.adamovichas.cinema.web.controller;
 
 import com.godeltechnologies.adamovichas.cinema.model.dto.Page;
 import com.godeltechnologies.adamovichas.cinema.model.view.FilmView;
+import com.godeltechnologies.adamovichas.cinema.model.request.SearchRequest;
 import com.godeltechnologies.adamovichas.service.IFilmService;
+import com.godeltechnologies.adamovichas.service.validation.SearchRequestValidation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static java.util.Objects.nonNull;
 
@@ -24,26 +23,23 @@ public class SearchController {
     }
 
     @GetMapping(value = "")
-    public ModelAndView doGet(HttpServletRequest req){
-        String currentPage = req.getParameter("currentPage");
-        final String search = req.getParameter("search");
-        if (currentPage == null) {
-            currentPage = "1";
-        }
-        int numberPage = Integer.parseInt(currentPage);
+    public ModelAndView doGet(SearchRequest request) {
         final ModelAndView modelAndView = new ModelAndView("main");
-        Page<FilmView> filmsOnPage;
-        if(nonNull(search)){
-            if(!search.equals("")) {
-                filmsOnPage = filmService.getFilmsOnPage(numberPage, search);
+        Integer currentPage = request.getCurrentPage();
+        final String search = request.getSearch();
+        final String exceptionMessage = SearchRequestValidation.validateSearch(search);
+        Page<FilmView> page;
+        if (nonNull(search)) {
+            if(exceptionMessage == null){
+                page = filmService.getFilmsOnPage(currentPage, search);
             }else {
-                filmsOnPage = filmService.getFilmsOnPage(numberPage);
+                page = new Page<>(exceptionMessage);
             }
-        }else {
-            filmsOnPage = filmService.getFilmsOnPage(numberPage);
+        } else {
+            page = filmService.getFilmsOnPage(currentPage);
         }
-        modelAndView.addObject("page",filmsOnPage);
-        modelAndView.addObject("search",search);
+        page.setSearchRequest(search);
+        modelAndView.addObject("page", page);
         return modelAndView;
     }
 

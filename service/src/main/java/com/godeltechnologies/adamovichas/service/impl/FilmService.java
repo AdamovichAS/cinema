@@ -5,8 +5,10 @@ import com.godeltechnologies.adamovichas.cinema.dao.IFilmDao;
 import com.godeltechnologies.adamovichas.cinema.model.dto.Page;
 import com.godeltechnologies.adamovichas.cinema.model.view.FilmView;
 import com.godeltechnologies.adamovichas.service.IFilmService;
+import com.godeltechnologies.adamovichas.service.creator.SearchCriteriaCreator;
 
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -32,8 +34,18 @@ public class FilmService implements IFilmService {
 
     @Override
     public Page<FilmView> getFilmsOnPage(int currentPage, String search){
-        final Deque<SearchCriteria> criterias = SearchCriteria.create(search);
-        final List<FilmView> views = filmDao.getFilmViewsOnPageByFilters(new ArrayDeque<>(criterias), currentPage, PAGE_SIZE);
+        Deque<SearchCriteria> criterias;
+        try {
+            criterias = SearchCriteriaCreator.createFilmCriteria(search);
+        } catch (DateTimeParseException e) {
+            return new Page<>("Поддерживается формат ввода даты YYYY-MM-DD");
+        }
+        List<FilmView> views;
+        try {
+            views = filmDao.getFilmViewsOnPageByFilters(criterias, currentPage, PAGE_SIZE);
+        } catch (IllegalArgumentException e) {
+            return new Page<>("Поддерживается фильтр над полями id, name, releaseDate, genreId, directorId.");
+        }
         final Long countFilms = filmDao.getCountFilmViewsByFilters(criterias);
         final Long filmViewsMaxPages = getFilmViewsMaxPages(countFilms);
         return new Page<>(PAGE_SIZE,currentPage,filmViewsMaxPages,views);

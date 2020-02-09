@@ -5,6 +5,7 @@ import com.godeltechnologies.adamovichas.service.IFilmService;
 import com.godeltechnologies.adamovichas.service.impl.FilmService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 public class ServiceConfig {

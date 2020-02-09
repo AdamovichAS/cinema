@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
@@ -27,7 +28,8 @@ public class FilmDao implements IFilmDao {
 
     @Override
     public List<FilmView> getFilmViewsOnPageByFilters(Deque<SearchCriteria> criterias, int currentPage, int pageSize) {
-        final Specification<FilmEntity> specification = SearchSpecification.getSpecification(criterias);
+        Deque<SearchCriteria> criteriaDeque = new ArrayDeque<>(criterias);
+        final Specification<FilmEntity> specification = SearchSpecification.getSpecification(criteriaDeque);
         final List<FilmEntity> filmEntities = filmRepository.findAll(specification, PageRequest.of(currentPage - 1, pageSize, Sort.by("id"))).toList();
         return getFilmViews(filmEntities);
     }
@@ -53,7 +55,8 @@ public class FilmDao implements IFilmDao {
 
     @Override
     public Long getCountFilmViewsByFilters(Deque<SearchCriteria> criterias){
-        final Specification specification = SearchSpecification.getSpecification(criterias);
+        Deque<SearchCriteria> criteriaDeque = new ArrayDeque<>(criterias);
+        final Specification specification = SearchSpecification.getSpecification(criteriaDeque);
         return filmRepository.count(specification);
     }
 }

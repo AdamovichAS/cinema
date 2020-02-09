@@ -1,13 +1,14 @@
 package com.godeltechnologies.adamovichas.cinema.model.dto;
 
 import java.sql.Time;
+import java.time.LocalDate;
 
 public class FilmDto {
 
     private Long id;
     private Long directorId;
     private String name;
-    private Time releaseDate;
+    private LocalDate releaseDate;
     private Long genreId;
 
     public Long getId() {
@@ -34,11 +35,11 @@ public class FilmDto {
         this.name = name;
     }
 
-    public Time getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Time releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

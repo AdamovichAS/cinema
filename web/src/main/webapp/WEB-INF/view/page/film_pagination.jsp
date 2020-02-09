@@ -20,16 +20,22 @@
 
 <div>
     <table class="table table-striped table-bordered table-sm">
-        <H3>Films</H3>
+        <H3>Фильмы</H3>
         <tr>
-            <th>Director</th>
-            <th>Film</th>
+            <th>Название фильма</th>
+            <th>Дата релиза</th>
+            <th>Жанр</th>
+            <th>Режисёр</th>
+            <th>Дата рождения</th>
         </tr>
 
         <c:forEach items="${page.views}" var="film">
             <tr>
-                <td>${film.getDirectorInfo()}</td>
-                <td>${film.getFilmInfo()}</td>
+                <td>${film.filmName}</td>
+                <td>${film.filmReleaseDate}</td>
+                <td>${film.filmGenre}</td>
+                <td>${film.getDirectorFullName()}</td>
+                <td>${film.directorBirthDate}</td>
             </tr>
         </c:forEach>
     </table>
@@ -40,7 +46,7 @@
         <c:if test="${page.currentPage > 1}">
             <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/main/?currentPage=${page.currentPage-1}&search=${search}"
+                   href="${pageContext.request.contextPath}/main/?currentPage=${page.currentPage-1}&search=${page.searchRequest}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -56,14 +62,14 @@
                 <c:otherwise>
                     <li class="page-item">
                         <a class="page-link"
-                           href="${pageContext.request.contextPath}/main/?currentPage=${item}&search=${search}">${item}</a></li>
+                           href="${pageContext.request.contextPath}/main/?currentPage=${item}&search=${page.searchRequest}">${item}</a></li>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
         <c:if test="${page.currentPage < page.maxPages}">
             <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/main/?currentPage=${page.currentPage+1}&search=${search}"
+                   href="${pageContext.request.contextPath}/main/?currentPage=${page.currentPage+1}&search=${page.searchRequest}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>

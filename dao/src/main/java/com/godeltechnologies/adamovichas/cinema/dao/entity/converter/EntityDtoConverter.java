@@ -40,6 +40,7 @@ public final class EntityDtoConverter {
 
     public static FilmView getView(FilmEntity entity){
         final FilmView view = new FilmView();
+        view.setDirectorId(entity.getDirectorId());
         view.setDirectorFirstName(entity.getDirector().getFirstName());
         view.setDirectorLastName(entity.getDirector().getLastName());
         view.setDirectorBirthDate(entity.getDirector().getBirthDate());

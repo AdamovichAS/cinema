@@ -1,7 +1,5 @@
 package com.godeltechnologies.adamovichas.cinema.model.dto;
 
-import com.godeltechnologies.adamovichas.cinema.model.view.FilmView;
-
 import java.util.List;
 
 public class Page<T> {
@@ -9,7 +7,13 @@ public class Page<T> {
     private int pageSize;
     private int currentPage;
     private Long maxPages;
+    private String exception;
+    private String searchRequest;
     private List<T> views;
+
+    public Page(String exception) {
+        this.exception = exception;
+    }
 
     public Page(int pageSize, int currentPage, Long maxPages, List<T> views) {
         this.pageSize = pageSize;
@@ -40,6 +44,22 @@ public class Page<T> {
 
     public void setMaxPages(Long maxPages) {
         this.maxPages = maxPages;
+    }
+
+    public String getException() {
+        return exception;
+    }
+
+    public void setException(String exception) {
+        this.exception = exception;
+    }
+
+    public String getSearchRequest() {
+        return searchRequest;
+    }
+
+    public void setSearchRequest(String searchRequest) {
+        this.searchRequest = searchRequest;
     }
 
     public List<T> getViews() {

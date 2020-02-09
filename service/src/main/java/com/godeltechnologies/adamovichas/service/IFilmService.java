@@ -7,5 +7,5 @@ public interface IFilmService {
 
  Page<FilmView> getFilmsOnPage(int currentPage);
 
-    Page<FilmView> getFilmsOnPage(int currentPage, String search);
+ Page<FilmView> getFilmsOnPage(int currentPage, String search);
 }

@@ -1,6 +1,7 @@
 package com.godeltechnologies.adamovichas.cinema.dao.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class DirectorEntity {
     private Long id;
     private String firstName;
     private String lastName;
-    private Date birthDate;
+    private LocalDate birthDate;
     private List<FilmEntity>films;
 
     @Id
@@ -43,12 +44,12 @@ public class DirectorEntity {
         this.lastName = lastName;
     }
 
-    @Column(name = "birth_date",nullable = false, columnDefinition = "DATE")
-    public Date getBirthDate() {
+    @Column(name = "birth_date",nullable = false)
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
     @OneToMany(mappedBy = "director")

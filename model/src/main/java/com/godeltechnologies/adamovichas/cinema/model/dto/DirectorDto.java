@@ -1,13 +1,14 @@
 package com.godeltechnologies.adamovichas.cinema.model.dto;
 
 import java.sql.Time;
+import java.time.LocalDate;
 
 public class DirectorDto {
 
     private Long id;
     private String firstName;
     private String lastName;
-    private Time birthDate;
+    private LocalDate birthDate;
 
     public Long getId() {
         return id;
@@ -33,11 +34,11 @@ public class DirectorDto {
         this.lastName = lastName;
     }
 
-    public Time getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Time birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }

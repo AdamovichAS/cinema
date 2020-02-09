@@ -4,10 +4,8 @@ import com.godeltechnologies.adamovichas.cinema.dao.entity.FilmEntity;
 import com.godeltechnologies.adamovichas.cinema.model.search.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.time.LocalDate;
 import java.util.Deque;
 
 public class SearchSpecification implements Specification {
@@ -19,9 +17,9 @@ public class SearchSpecification implements Specification {
         this.criteria = criteria;
     }
 
-    public static Specification getSpecification(Deque<SearchCriteria> criterias){
+    public static Specification getSpecification(Deque<SearchCriteria> criterias) {
         Specification specification = Specification.where(new SearchSpecification(criterias.pollFirst()));
-        while (!criterias.isEmpty()){
+        while (!criterias.isEmpty()) {
             specification = specification.and(new SearchSpecification(criterias.pollFirst()));
         }
         return specification;
@@ -33,26 +31,40 @@ public class SearchSpecification implements Specification {
 
     @Override
     public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder criteriaBuilder) {
-        if (criteria.getOperation().equalsIgnoreCase(">")) {
-            return criteriaBuilder.greaterThanOrEqualTo(
-                    root.<String> get(criteria.getKey()), criteria.getValue().toString());
-        }
-        else if (criteria.getOperation().equalsIgnoreCase("<")) {
-            return criteriaBuilder.lessThanOrEqualTo(
-                    root.<String> get(criteria.getKey()), criteria.getValue().toString());
-        }
-        else if (criteria.getOperation().equalsIgnoreCase(":")) {
-            if (root.get(criteria.getKey()).getJavaType() == String.class) {
-                return criteriaBuilder.like(
-                        root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
-            } else {
-                return criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue());
-            }
-        }else if (criteria.getOperation().equalsIgnoreCase("=")){
-            return criteriaBuilder.equal(
-                    root.get(criteria.getKey()),criteria.getValue().toString());
+        if (criteria.getOperation().equals(">")) {
+            return greaterThan(root, criteriaBuilder);
+        } else if (criteria.getOperation().equals("<")) {
+            return lesserThan(root, criteriaBuilder);
+        } else if (criteria.getOperation().equals("=")) {
+            return likeOrEquals(root, criteriaBuilder);
         }
         return null;
     }
 
+    private Predicate greaterThan(Root root, CriteriaBuilder criteriaBuilder) {
+        Class javaType = root.get(criteria.getKey()).getJavaType();
+        if (javaType == LocalDate.class) {
+            return criteriaBuilder.greaterThanOrEqualTo(root.<LocalDate>get(criteria.getKey()), (LocalDate) criteria.getValue());
+        } else {
+            return criteriaBuilder.greaterThanOrEqualTo(root.<String>get(criteria.getKey()), criteria.getValue().toString());
+        }
+    }
+
+    private Predicate lesserThan(Root root, CriteriaBuilder criteriaBuilder){
+        Class javaType = root.get(criteria.getKey()).getJavaType();
+        if (javaType == LocalDate.class) {
+            return criteriaBuilder.lessThanOrEqualTo(root.<LocalDate>get(criteria.getKey()), (LocalDate) criteria.getValue());
+        } else {
+            return criteriaBuilder.lessThanOrEqualTo(root.<String>get(criteria.getKey()), criteria.getValue().toString());
+        }
+    }
+
+    private Predicate likeOrEquals(Root root, CriteriaBuilder criteriaBuilder){
+        Class javaType = root.get(criteria.getKey()).getJavaType();
+        if(javaType == String.class){
+            return criteriaBuilder.like(root.<String>get(criteria.getKey()), "%" + criteria.getValue() + "%");
+        } else {
+            return criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue());
+        }
+    }
 }

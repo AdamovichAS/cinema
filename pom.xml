@@ -35,22 +35,17 @@
         <tiles-el.version>3.0.8</tiles-el.version>
         <tiles-template.version>3.0.8</tiles-template.version>
 
-        <commons-fileupload.version>1.4</commons-fileupload.version>
         <HikariCP.version>3.4.1</HikariCP.version>
 
         <junit-jupiter-engine.version>5.5.2</junit-jupiter-engine.version>
         <mockito-core.version>3.1.0</mockito-core.version>
         <mockito-junit-jupiter.version>3.1.0</mockito-junit-jupiter.version>
 
-        <validation-api.version>2.0.1.Final</validation-api.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
         <jstl.version>1.2</jstl.version>
 
         <mysql.conector.java.version>8.0.17</mysql.conector.java.version>
-        <slf4j-api.version>1.7.28</slf4j-api.version>
-        <log4j-core.version>2.12.1</log4j-core.version>
-        <log4j-slf4j-impl.version>2.12.1</log4j-slf4j-impl.version>
         <hibernate-core.version>5.4.5.Final</hibernate-core.version>
     </properties>
     <dependencyManagement>
@@ -110,35 +105,20 @@
                 <artifactId>HikariCP</artifactId>
                 <version>${HikariCP.version}</version>
             </dependency>
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${validation-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>javax.validation</groupId>-->
+<!--                <artifactId>validation-api</artifactId>-->
+<!--                <version>${validation-api.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>commons-fileupload</groupId>-->
+<!--                <artifactId>commons-fileupload</artifactId>-->
+<!--                <version>${commons-fileupload.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${log4j-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j-slf4j-impl.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>

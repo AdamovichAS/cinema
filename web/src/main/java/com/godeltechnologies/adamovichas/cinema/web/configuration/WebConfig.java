@@ -21,12 +21,12 @@ public class WebConfig {
         return resolver;
     }
 
-    @Bean
-    public CommonsMultipartResolver multipartResolver(){
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setDefaultEncoding("UTF-8");
-        return multipartResolver;
-    }
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver(){
+//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+//        multipartResolver.setDefaultEncoding("UTF-8");
+//        return multipartResolver;
+//    }
 
     @Bean
     public TilesConfigurer tilesConfigurer(){

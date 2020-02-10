@@ -17,8 +17,6 @@ import java.util.List;
 
 public class FilmService implements IFilmService {
 
-    private static final Logger log = LoggerFactory.getLogger(FilmService.class);
-
     private static final int PAGE_SIZE = 5;
 
     private final IFilmDao filmDao;
@@ -43,14 +41,12 @@ public class FilmService implements IFilmService {
         try {
             criterias = searchCriteriaCreator.createFilmCriteria(search);
         } catch (DateTimeParseException e) {
-            log.error("Fail to parse date in search: {}, at: {}", search, LocalDateTime.now(), e);
             return new Page<>("Поддерживается формат ввода даты YYYY-MM-DD");
         }
         List<FilmView> views;
         try {
             views = filmDao.getFilmViewsOnPageByFilters(criterias, currentPage, PAGE_SIZE);
         } catch (IllegalArgumentException e) {
-            log.error("Fail to find field in data base by search: {}, at: {}", search, LocalDateTime.now(), e);
             return new Page<>("Поддерживается фильтр над полями id, name, releaseDate, genreId, directorId.");
         }
         final Long countFilms = filmDao.getCountFilmViewsByFilters(criterias);

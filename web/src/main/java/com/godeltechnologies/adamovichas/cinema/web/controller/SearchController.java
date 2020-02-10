@@ -4,7 +4,7 @@ import com.godeltechnologies.adamovichas.cinema.model.dto.Page;
 import com.godeltechnologies.adamovichas.cinema.model.view.FilmView;
 import com.godeltechnologies.adamovichas.cinema.model.request.SearchRequest;
 import com.godeltechnologies.adamovichas.service.IFilmService;
-import com.godeltechnologies.adamovichas.service.validation.SearchRequestValidation;
+import com.godeltechnologies.adamovichas.cinema.web.validation.SearchRequestValidation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

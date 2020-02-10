@@ -5,6 +5,7 @@ import com.godeltechnologies.adamovichas.cinema.model.dto.Page;
 import com.godeltechnologies.adamovichas.cinema.model.search.SearchCriteria;
 import com.godeltechnologies.adamovichas.cinema.model.view.FilmView;
 import com.godeltechnologies.adamovichas.service.creator.SearchCriteriaCreator;
+import com.godeltechnologies.adamovichas.service.impl.FilmService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -26,6 +26,9 @@ public class FilmServiceTest {
 
     @Mock
     private FilmDao filmDao;
+
+    @Mock
+    private SearchCriteriaCreator searchCriteriaCreator;
 
     @InjectMocks
     private FilmService filmService;
@@ -52,25 +55,46 @@ public class FilmServiceTest {
         when(filmDao.getFilmViewsOnPag(CURRENT_PAGE,PAGE_SIZE)).thenReturn(views);
         when(filmDao.getCountFilmViews()).thenReturn(COUNT_FILMS);
         final Page<FilmView> filmsOnPage = filmService.getFilmsOnPage(CURRENT_PAGE);
+        Mockito.verify(filmDao,times(1)).getFilmViewsOnPag(CURRENT_PAGE,PAGE_SIZE);
+        Mockito.verify(filmDao,times(1)).getCountFilmViews();
         assertEquals(filmsOnPage.getCurrentPage(),CURRENT_PAGE);
         assertEquals(filmsOnPage.getMaxPages(),FILM_MAX_PAGES);
         assertEquals(filmsOnPage.getViews().size(),views.size());
     }
 
     @Test
-    public void getFilmsOnPageBySearchThrowDateTimeParseException(){
-        String search = "id=1/releaseDate=2000/";
-        final Page<FilmView> filmsOnPage = filmService.getFilmsOnPage(CURRENT_PAGE, search);
+    public void getFilmsOnPageBySearchThrowDateTimeParseExceptionTest(){
+        when(searchCriteriaCreator.createFilmCriteria(anyString())).thenThrow(DateTimeParseException.class);
+        final Page<FilmView> filmsOnPage = filmService.getFilmsOnPage(CURRENT_PAGE,"200");
+        Mockito.verify(searchCriteriaCreator,times(1)).createFilmCriteria(anyString());
         assertNotNull(filmsOnPage.getException());
     }
 
-//    @Test
-//    public void getFilmsOnPageBySearch(){
-//        String search = "id=1/";
-//        Deque<SearchCriteria> filmCriteria = SearchCriteriaCreator.createFilmCriteria(search);
-//        when(filmDao.getFilmViewsOnPageByFilters((Deque<SearchCriteria>) anyCollection(),eq(CURRENT_PAGE),eq(PAGE_SIZE))).thenReturn(new ArrayList<>());
-//        when(filmDao.getCountFilmViewsByFilters(filmCriteria)).thenReturn(COUNT_FILMS);
-//        final Page<FilmView> filmsOnPage = filmService.getFilmsOnPage(eq(CURRENT_PAGE), search);
-//        Mockito.verify(filmDao,times(1)).getCountFilmViewsByFilters(filmCriteria);
-//    }
+    @Test
+    public void getFilmsOnPageBySearchThrowIllegalArgumentExceptionTest(){
+        String search = "ids=1/";
+        Deque<SearchCriteria> criterias = new ArrayDeque<>();
+        when(searchCriteriaCreator.createFilmCriteria(search)).thenReturn(criterias);
+        when(filmDao.getFilmViewsOnPageByFilters(criterias,CURRENT_PAGE,PAGE_SIZE)).thenThrow(IllegalArgumentException.class);
+        final Page<FilmView> filmsOnPage = filmService.getFilmsOnPage(CURRENT_PAGE, search);
+        Mockito.verify(searchCriteriaCreator,times(1)).createFilmCriteria(search);
+        Mockito.verify(filmDao,times(1)).getFilmViewsOnPageByFilters(criterias,CURRENT_PAGE,PAGE_SIZE);
+        assertNotNull(filmsOnPage.getException());
+
+    }
+
+    @Test
+    public void getFilmsOnPageBySearch(){
+        String search = "id=1/";
+        Deque<SearchCriteria> criterias = new ArrayDeque<>();
+        List<FilmView>views = new ArrayList<>();
+        when(searchCriteriaCreator.createFilmCriteria(search)).thenReturn(criterias);
+        when(filmDao.getFilmViewsOnPageByFilters(criterias,CURRENT_PAGE,PAGE_SIZE)).thenReturn(views);
+        when(filmDao.getCountFilmViewsByFilters(criterias)).thenReturn(COUNT_FILMS);
+        final Page<FilmView> filmsOnPage = filmService.getFilmsOnPage(CURRENT_PAGE, search);
+        Mockito.verify(searchCriteriaCreator,times(1)).createFilmCriteria(search);
+        Mockito.verify(filmDao,times(1)).getFilmViewsOnPageByFilters(criterias,CURRENT_PAGE,PAGE_SIZE);
+        Mockito.verify(filmDao,times(1)).getCountFilmViewsByFilters(criterias);
+        assertNull(filmsOnPage.getException());
+    }
 }

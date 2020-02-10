@@ -1,6 +1,6 @@
 package com.godeltechnologies.adamovichas.cinema.dao.impl;
 
-import com.godeltechnologies.adamovichas.cinema.dao.entity.converter.EntityDtoConverter;
+import com.godeltechnologies.adamovichas.cinema.dao.entity.converter.EntityViewConverter;
 import com.godeltechnologies.adamovichas.cinema.dao.IFilmDao;
 import com.godeltechnologies.adamovichas.cinema.dao.criteria.specification.SearchSpecification;
 import com.godeltechnologies.adamovichas.cinema.dao.repository.FilmRepository;
@@ -43,7 +43,7 @@ public class FilmDao implements IFilmDao {
     private List<FilmView> getFilmViews(List<FilmEntity> filmEntities) {
         List<FilmView> views= new ArrayList<>();
         for (FilmEntity filmEntity : filmEntities) {
-            views.add(EntityDtoConverter.getView(filmEntity));
+            views.add(EntityViewConverter.getView(filmEntity));
         }
         return views;
     }

@@ -1,23 +1,22 @@
 package com.godeltechnologies.adamovichas.service.creator;
 
 import com.godeltechnologies.adamovichas.cinema.model.search.SearchCriteria;
-import com.godeltechnologies.adamovichas.service.validation.SearchRequestValidation;
-import org.springframework.beans.factory.annotation.Value;
+
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class SearchCriteriaCreator {
-
-   // @Value("${creator.criteria}")
-    private static final String SearchRegEx = "(\\w+)(=|<|>)([\\wА-Яа-яёЁ!?., :-]+)/";
+public class SearchCriteriaCreator implements ISearchCriteriaCreator {
 
 
-    public static Deque<SearchCriteria> createFilmCriteria(String search) {
+    private final String SearchRegEx = "(\\w+)(=|<|>)([\\wА-Яа-яёЁ!?., :-]+)/";
+
+
+    @Override
+    public Deque<SearchCriteria> createFilmCriteria(String search) {
         Deque<SearchCriteria> criterias = new ArrayDeque<>();
         Pattern pattern = Pattern.compile(SearchRegEx, Pattern.UNICODE_CHARACTER_CLASS);
         final Matcher matcher = pattern.matcher(search);

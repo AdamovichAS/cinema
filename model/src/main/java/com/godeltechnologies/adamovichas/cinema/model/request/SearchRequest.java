@@ -5,10 +5,8 @@ import static java.util.Objects.nonNull;
 
 public class SearchRequest {
 
-//    @DecimalMin(value = "0", message = "Page must be greater than 0")
+
     private Integer currentPage;
-//    @Pattern(regexp = "^((id|name|releaseDate|genreId|directorId)(:|<|>|:)([\\wА-Яа-я :!?.,-]+)#)+$",
-//            message = "Поиск поддерживает операции >,<,= над полями id,name,releaseDate,genreId,directorId.")
     private String search;
 
     public Integer getCurrentPage() {

@@ -6,11 +6,7 @@ import com.godeltechnologies.adamovichas.cinema.model.dto.Page;
 import com.godeltechnologies.adamovichas.cinema.model.view.FilmView;
 import com.godeltechnologies.adamovichas.service.IFilmService;
 import com.godeltechnologies.adamovichas.service.creator.ISearchCriteriaCreator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Deque;
 import java.util.List;

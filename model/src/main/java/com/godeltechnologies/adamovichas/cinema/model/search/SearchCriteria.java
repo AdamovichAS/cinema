@@ -1,10 +1,5 @@
 package com.godeltechnologies.adamovichas.cinema.model.search;
 
-import java.time.LocalDate;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SearchCriteria {
 

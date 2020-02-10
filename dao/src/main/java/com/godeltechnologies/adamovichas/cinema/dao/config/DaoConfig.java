@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.godeltechnologies.adamovichas.cinema.dao.repository")
 public class DaoConfig {
 
-
     @Autowired
     private FilmRepository filmRepository;
 

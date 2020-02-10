@@ -5,7 +5,6 @@ import com.godeltechnologies.adamovichas.cinema.model.dto.Page;
 import com.godeltechnologies.adamovichas.cinema.model.search.SearchCriteria;
 import com.godeltechnologies.adamovichas.cinema.model.view.FilmView;
 import com.godeltechnologies.adamovichas.service.creator.SearchCriteriaCreator;
-import com.godeltechnologies.adamovichas.service.impl.FilmService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,6 +1,5 @@
 package com.godeltechnologies.adamovichas.cinema.dao.criteria.specification;
 
-import com.godeltechnologies.adamovichas.cinema.dao.entity.FilmEntity;
 import com.godeltechnologies.adamovichas.cinema.model.search.SearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -13,7 +12,6 @@ public class SearchSpecification implements Specification {
     private SearchCriteria criteria;
 
     public SearchSpecification(final SearchCriteria criteria) {
-        super();
         this.criteria = criteria;
     }
 

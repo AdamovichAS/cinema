@@ -2,7 +2,6 @@ package com.godeltechnologies.adamovichas.cinema.dao.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "film")

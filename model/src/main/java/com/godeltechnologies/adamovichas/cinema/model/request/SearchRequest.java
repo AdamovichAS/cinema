@@ -1,6 +1,5 @@
 package com.godeltechnologies.adamovichas.cinema.model.request;
 
-
 import static java.util.Objects.nonNull;
 
 public class SearchRequest {

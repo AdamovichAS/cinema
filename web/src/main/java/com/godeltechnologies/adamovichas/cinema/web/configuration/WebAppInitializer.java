@@ -20,10 +20,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new String[] {"/"};
     }
 
-//    @Override
-//    protected Filter[] getServletFilters() {
-//        final DelegatingFilterProxy delegateFilterProxy = new DelegatingFilterProxy();
-//        delegateFilterProxy.setTargetBeanName("springSecurityFilterChain");
-//        return new Filter[]{delegateFilterProxy};
-//    }
 }

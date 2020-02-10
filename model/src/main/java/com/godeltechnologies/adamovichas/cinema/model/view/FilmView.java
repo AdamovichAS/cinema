@@ -1,7 +1,6 @@
 package com.godeltechnologies.adamovichas.cinema.model.view;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class FilmView {
 
